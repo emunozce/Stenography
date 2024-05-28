@@ -4,6 +4,7 @@
 
 import sys
 from pathlib import Path
+from image_processing import clean_image, has_hidden_data
 
 if __name__ == "__main__":
     args = sys.argv
@@ -19,4 +20,11 @@ if __name__ == "__main__":
             if not path.exists():
                 print("File does not exist")
             else:
-                print("File exists")
+                if path.suffix in [".png", ".jpg", ".jpeg"]:
+                    if has_hidden_data(path):
+                        print("File contains hidden data")
+
+                        output_path = path.with_name(path.stem + "_clean" + path.suffix)
+
+                        clean_image(path, output_path)
+                        print("Hidden data removed, saved to", output_path)
