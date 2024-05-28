@@ -6,7 +6,8 @@
 
 import sys
 from pathlib import Path
-from image_processing import clean_image, has_hidden_data
+from audio_processing import clean_audio
+from image_processing import clean_image, convert_png_to_jpeg, has_hidden_data
 
 if __name__ == "__main__":
     args = sys.argv
@@ -22,7 +23,7 @@ if __name__ == "__main__":
             if not path.exists():
                 print("File does not exist")
             else:
-                if path.suffix in [".png", ".jpg", ".jpeg"]:
+                if path.suffix in [".jpg", ".jpeg", ".bmp"]:
                     if has_hidden_data(path):
                         print("File contains hidden data")
 
@@ -32,3 +33,16 @@ if __name__ == "__main__":
                         print("Hidden data removed, saved to", output_path)
                     else:
                         print("No hidden data found")
+                elif path.suffix in [".png"]:
+                    print("Converting PNG to JPEG")
+                    output_path = path.with_suffix(".jpeg")
+                    convert_png_to_jpeg(path, output_path)
+                    print("File converted to JPEG and saved to", output_path)
+                elif path.suffix in [".wav", ".wave"]:
+                    output_path = path.with_name(path.stem + "_clean" + path.suffix)
+
+                    clean_audio(path, output_path)
+                    print("Hidden data removed, saved to", output_path)
+                else:
+                    print("File format not supported")
+                    sys.exit(1)

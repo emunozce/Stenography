@@ -36,3 +36,13 @@ def clean_image(image_path: Path, output_path: Path) -> None:
 
     clean_img = Image.fromarray(clean_pixels)
     clean_img.save(output_path)
+
+
+def convert_png_to_jpeg(input_path, output_path):
+    """
+    #3
+    """
+
+    with Image.open(input_path) as img:
+        img = img.convert("RGB")
+        img.save(output_path, "JPEG")
