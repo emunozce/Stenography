@@ -30,3 +30,5 @@ if __name__ == "__main__":
 
                         clean_image(path, output_path)
                         print("Hidden data removed, saved to", output_path)
+                    else:
+                        print("No hidden data found")
