@@ -1,5 +1,7 @@
 """
-
+    This is the entry point of the program.
+    It checks if theres any sign of hidden data in some
+    type of files. If there is, it will clean the file.
 """
 
 import sys
